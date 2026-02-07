@@ -1,77 +1,81 @@
-[![Build Status](https://github.com/connectbot/connectbot/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/connectbot/connectbot/actions/workflows/ci.yml)
+# VoiceTerm
 
-# ConnectBot
+SSH client with Japanese input & voice recognition for Android.
 
-ConnectBot is a [Secure Shell](https://en.wikipedia.org/wiki/Secure_Shell)
-client for Android that lets you connect to remote servers over a
-cryptographically secure link.
+カフェからスマホで自宅PCを操作。日本語入力と音声認識で、モバイル開発体験を実現します。
 
+## Features
 
-## How to Install
+- **SSH接続** - ConnectBotベースの安定したSSH/Telnet/Mosh接続
+- **日本語入力対応** - IMEとの連携問題を解決した専用入力UI
+- **音声認識** - 声でコマンド入力（一定回数無料）
+- **Claude Code連携** - スマホからAIペアプログラミング
+
+## Screenshots
+
+(Coming soon)
+
+## Install
 
 ### Google Play
 
-[![Get it on Google Play][2]][1]
+(Coming soon)
 
-  [1]: https://play.google.com/store/apps/details?id=org.connectbot
-  [2]: https://developer.android.com/images/brand/en_generic_rgb_wo_60.png
+### Build from source
 
-The easiest way to get ConnectBot is to [install from Google Play Store][1].
-If you have installed from a downloaded APK, Google Play Store can upgrade
-your installed version to the latest version. However, once it has upgraded
-*you can't install a version from the releases on GitHub anymore.*
-
-
-### Download a release
-
-ConnectBot can be downloaded from [releases](
-https://github.com/connectbot/connectbot/releases) on GitHub. There are
-two versions:
-
--  "`google`" &mdash; for a version that uses Google Play Services
-to handle upgrading the cryptography provider
--  "`oss`" &mdash; includes the cryptography provider in the APK which
-   increases its size by a few megabytes.
-## Compiling
-
-### Android Studio
-
-ConnectBot is most easily developed in [Android Studio](
-https://developer.android.com/studio/). You can import this project
-directly from its project creation screen by importing from the GitHub URL.
-
-### Command line
-
-To compile ConnectBot using `gradlew`, you must first specify where your
-Android SDK is via the `ANDROID_SDK_HOME` environment variable. Then
-you can invoke the Gradle wrapper to build:
-
-```sh
-./gradlew build
+```bash
+git clone https://github.com/kenimo49/VoiceTerm.git
+cd VoiceTerm
+./gradlew assembleDebug
 ```
 
-### Continuous Integration
+## Development
 
-ConnectBot uses [GitHub Actions](https://github.com/connectbot/connectbot/actions)
-for continuous integration. The workflow is defined in
-`.github/workflows/ci.yml`.
+### Requirements
 
-#### Running Workflows Locally with act
+- Android Studio (latest stable)
+- Android SDK 21+
+- Kotlin 1.9+
 
-In general, simply running `./gradlew build` should cover all the
-checks run in the GitHub Actions continuous integration workflow, but you can
-run GitHub Actions workflows locally using [`nektos/act`](https://github.com/nektos/act).
-This requires Docker to be installed and running.
+### Build
 
-To run the main CI workflow (`ci.yml`):
+```bash
+# Debug build
+./gradlew assembleDebug
 
-```sh
-act -W .github/workflows/ci.yml
+# Release build
+./gradlew assembleRelease
+
+# Run tests
+./gradlew test
 ```
 
+詳細は [CLAUDE.md](CLAUDE.md) を参照してください。
 
-## Translations
+## Roadmap
 
-If you'd like to correct or contribute new translations to ConnectBot,
-then head on over to [ConnectBot's translations project](
-https://translations.launchpad.net/connectbot/trunk/+pots/fortune)
+- [x] リポジトリ作成
+- [ ] 日本語入力UI実装
+- [ ] 音声認識実装
+- [ ] Google Play公開
+- [ ] 広告・課金実装
+
+詳細は [ROADMAP.md](ROADMAP.md) を参照してください。
+
+## License
+
+Apache License 2.0
+
+This project is forked from [ConnectBot](https://github.com/connectbot/connectbot).
+
+```
+Copyright 2007-2024 ConnectBot Contributors
+Copyright 2024 VoiceTerm Contributors
+
+Licensed under the Apache License, Version 2.0
+```
+
+## Acknowledgments
+
+- [ConnectBot](https://github.com/connectbot/connectbot) - Original SSH client for Android
+- ConnectBot Contributors - For building an excellent open source SSH client
