@@ -3,40 +3,58 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-  <!-- Shadow -->
+  <!-- Bottom accent bar (Teal) -->
   <path
-      android:fillColor="#FF000000"
-      android:pathData="M108.001,108L76.917,108L38.317,69.071 53.577,53.81 67.046,67.247 72.972,66 108.001,101.077L108.001,108Z"
-      android:strokeAlpha="0.103"
-      android:fillAlpha="0.103"/>
-  <!-- Bottom accent bar (Indigo) -->
+      android:pathData="M0,108L0,86L108,86L108,108Z"
+      android:fillColor="#4DB6AC"/>
+  <!-- Terminal prompt > -->
   <path
-      android:pathData="M0,108L0,84.068L108,84.068L108,108Z"
-      android:fillColor="#7986CB"/>
-  <!-- Terminal prompt arrow > -->
+      android:pathData="M36,58.5L44,66.5L36,74L33,71L39,66.5L33,61.5Z"
+      android:fillColor="#80CBC4"/>
+  <!-- Microphone body -->
   <path
-      android:pathData="M30.839,39.124l15.232,15.232 -15.232,15.232 -3.839,-3.839L38.395,54.356 26.995,42.963Z"
-      android:fillColor="#fff"/>
-  <!-- Terminal cursor _ -->
-  <path
-      android:pathData="M46,66L60,66L60,70L46,70Z"
-      android:fillColor="#fff"/>
-  <!-- Microphone body (rounded rectangle) -->
-  <path
-      android:pathData="M74,44 C74,41.79 75.79,40 78,40 C80.21,40 82,41.79 82,44L82,54 C82,56.21 80.21,58 78,58 C75.79,58 74,56.21 74,54Z"
-      android:fillColor="#fff"/>
+      android:pathData="M49,39.5 C49,37 51,34.5 54,34.5 C57,34.5 59,37 59,39.5L59,53 C59,55.5 57,58 54,58 C51,58 49,55.5 49,53Z"
+      android:fillColor="#FFFFFF"/>
   <!-- Microphone arc -->
   <path
-      android:pathData="M70,52 C70,56.42 73.58,60 78,60 C82.42,60 86,56.42 86,52"
-      android:strokeWidth="2.5"
-      android:strokeColor="#fff"
+      android:pathData="M44,51 C44,56.5 49,61 54,61 C59,61 64,56.5 64,51"
+      android:strokeWidth="2.2"
+      android:strokeColor="#FFFFFF"
       android:fillColor="#00000000"/>
   <!-- Microphone stand -->
   <path
-      android:pathData="M77,60L77,65L79,65L79,60"
-      android:fillColor="#fff"/>
+      android:pathData="M53,61L53,66L55,66L55,61"
+      android:fillColor="#FFFFFF"/>
   <!-- Microphone base -->
   <path
-      android:pathData="M73,65L83,65L83,67L73,67Z"
-      android:fillColor="#fff"/>
+      android:pathData="M49,66L59,66L59,67.5L49,67.5Z"
+      android:fillColor="#FFFFFF"/>
+  <!-- Sound wave inner left -->
+  <path
+      android:pathData="M43,41.5 C40,46 40,53 43,57.5"
+      android:strokeWidth="2"
+      android:strokeColor="#B2DFDB"
+      android:fillColor="#00000000"
+      android:strokeLineCap="round"/>
+  <!-- Sound wave outer left -->
+  <path
+      android:pathData="M38,38 C34.5,44 34.5,55 38,61"
+      android:strokeWidth="2"
+      android:strokeColor="#80CBC4"
+      android:fillColor="#00000000"
+      android:strokeLineCap="round"/>
+  <!-- Sound wave inner right -->
+  <path
+      android:pathData="M65,41.5 C68,46 68,53 65,57.5"
+      android:strokeWidth="2"
+      android:strokeColor="#B2DFDB"
+      android:fillColor="#00000000"
+      android:strokeLineCap="round"/>
+  <!-- Sound wave outer right -->
+  <path
+      android:pathData="M70,38 C73.5,44 73.5,55 70,61"
+      android:strokeWidth="2"
+      android:strokeColor="#80CBC4"
+      android:fillColor="#00000000"
+      android:strokeLineCap="round"/>
 </vector>
