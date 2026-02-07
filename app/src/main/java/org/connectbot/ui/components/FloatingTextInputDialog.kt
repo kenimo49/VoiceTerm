@@ -36,7 +36,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -70,21 +71,23 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import org.connectbot.R
 import org.connectbot.service.TerminalBridge
+import org.connectbot.terminal.VTermKey
 import kotlin.math.roundToInt
 
 private const val PREF_FLOATING_INPUT_X = "floating_input_x"
 private const val PREF_FLOATING_INPUT_Y = "floating_input_y"
-private const val DEFAULT_X_RATIO = 0.05f // 5% from left
-private const val DEFAULT_Y_RATIO = 0.3f  // 30% from top
+private const val PREF_SEND_ENTER = "floating_input_send_enter"
+private const val DEFAULT_X_RATIO = 0.025f // 2.5% from left
+private const val DEFAULT_Y_RATIO = 0.0f   // top of screen
 
 /**
- * Floating, draggable text input dialog with Compose TextField for full IME support.
+ * Compact floating text input bar for full IME support (Japanese input, etc.).
  * Features:
- * - Draggable window that can be positioned anywhere
+ * - Compact 2-row bar: header with title/options, input row with TextField + send button
+ * - Draggable, positioned at top by default so terminal output is visible below
+ * - Checkbox to toggle appending Enter (\n) on send
  * - Full IME support with swipe typing, voice input, predictions
- * - Persistent positioning saved in SharedPreferences
- * - Material Design 3 styling with blue accent
- * - Full text selection support
+ * - Persistent positioning and Enter preference saved in SharedPreferences
  */
 @Composable
 fun FloatingTextInputDialog(
@@ -101,8 +104,8 @@ fun FloatingTextInputDialog(
 	val screenWidthPx = with(density) { configuration.screenWidthDp.dp.toPx() }
 	val screenHeightPx = with(density) { configuration.screenHeightDp.dp.toPx() }
 
-	// Window dimensions (90% of screen width)
-	val windowWidthDp = configuration.screenWidthDp * 0.9f
+	// Window dimensions (95% of screen width for compact bar)
+	val windowWidthDp = configuration.screenWidthDp * 0.95f
 	val windowWidthPx = with(density) { windowWidthDp.dp.toPx() }
 
 	// Load saved position or use defaults
@@ -117,18 +120,21 @@ fun FloatingTextInputDialog(
 	var text by remember { mutableStateOf(initialText) }
 	val focusRequester = remember { FocusRequester() }
 
+	// Enter checkbox state
+	var sendEnter by remember { mutableStateOf(prefs.getBoolean(PREF_SEND_ENTER, true)) }
+
 	// Request focus when shown
 	LaunchedEffect(Unit) {
 		focusRequester.requestFocus()
 	}
 
-	// Save position when dialog closes
+	// Save position and preferences when dialog closes
 	DisposableEffect(Unit) {
 		onDispose {
-			// Save position as ratio of screen size for orientation change support
 			prefs.edit {
 				putFloat(PREF_FLOATING_INPUT_X, offsetX / screenWidthPx)
 				putFloat(PREF_FLOATING_INPUT_Y, offsetY / screenHeightPx)
+				putBoolean(PREF_SEND_ENTER, sendEnter)
 			}
 		}
 	}
@@ -136,8 +142,11 @@ fun FloatingTextInputDialog(
 	// Send text helper function
 	fun sendText() {
 		if (text.isNotEmpty()) {
-			bridge.injectString(text + "\n")
-			onDismiss()
+			bridge.injectString(text)
+			if (sendEnter) {
+				bridge.terminalEmulator.dispatchKey(0, VTermKey.ENTER)
+			}
+			text = ""
 		}
 	}
 
@@ -152,7 +161,6 @@ fun FloatingTextInputDialog(
 			modifier = Modifier
 				.fillMaxSize()
 				.pointerInput(Unit) {
-					// Dismiss when clicking outside
 					detectDragGestures { _, _ -> }
 				}
 		) {
@@ -162,17 +170,17 @@ fun FloatingTextInputDialog(
 					.width(windowWidthDp.dp)
 					.background(
 						MaterialTheme.colorScheme.surface,
-						RoundedCornerShape(12.dp)
+						RoundedCornerShape(8.dp)
 					)
 			) {
-				// Draggable header
+				// Row 1: Draggable header with title, Enter checkbox, close button
 				Row(
 					modifier = Modifier
 						.fillMaxWidth()
-						.height(36.dp)
+						.height(32.dp)
 						.background(
 							MaterialTheme.colorScheme.primary,
-							RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)
+							RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
 						)
 						.pointerInput(Unit) {
 							detectDragGestures { change, dragAmount ->
@@ -183,48 +191,74 @@ fun FloatingTextInputDialog(
 								)
 								offsetY = (offsetY + dragAmount.y).coerceIn(
 									0f,
-									screenHeightPx - with(density) { 200.dp.toPx() }
+									screenHeightPx - with(density) { 100.dp.toPx() }
 								)
 							}
 						}
-						.padding(horizontal = 12.dp),
+						.padding(start = 12.dp, end = 4.dp),
 					verticalAlignment = Alignment.CenterVertically,
 					horizontalArrangement = Arrangement.SpaceBetween
 				) {
 					Text(
 						text = stringResource(R.string.terminal_text_input_dialog_title),
-						style = MaterialTheme.typography.titleSmall,
+						style = MaterialTheme.typography.labelMedium,
 						color = MaterialTheme.colorScheme.onPrimary
 					)
 
-					IconButton(
-						onClick = onDismiss,
-						modifier = Modifier.size(24.dp)
+					Row(
+						verticalAlignment = Alignment.CenterVertically
 					) {
-						Icon(
-							Icons.Default.Close,
-							contentDescription = stringResource(R.string.button_close),
-							tint = MaterialTheme.colorScheme.onPrimary,
-							modifier = Modifier.size(18.dp)
+						// Enter checkbox
+						Checkbox(
+							checked = sendEnter,
+							onCheckedChange = { sendEnter = it },
+							modifier = Modifier.size(20.dp),
+							colors = CheckboxDefaults.colors(
+								checkedColor = MaterialTheme.colorScheme.onPrimary,
+								uncheckedColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.7f),
+								checkmarkColor = MaterialTheme.colorScheme.primary
+							)
 						)
+						Text(
+							text = stringResource(R.string.terminal_text_input_send_enter),
+							style = MaterialTheme.typography.labelSmall,
+							color = MaterialTheme.colorScheme.onPrimary,
+							modifier = Modifier.padding(start = 2.dp, end = 8.dp)
+						)
+
+						// Close button
+						IconButton(
+							onClick = onDismiss,
+							modifier = Modifier.size(24.dp)
+						) {
+							Icon(
+								Icons.Default.Close,
+								contentDescription = stringResource(R.string.button_close),
+								tint = MaterialTheme.colorScheme.onPrimary,
+								modifier = Modifier.size(16.dp)
+							)
+						}
 					}
 				}
 
-				// TextField container
+				// Row 2: Compact text input + send button
 				Row(
 					modifier = Modifier
 						.fillMaxWidth()
-						.padding(12.dp),
-					verticalAlignment = Alignment.Bottom,
-					horizontalArrangement = Arrangement.spacedBy(8.dp)
+						.padding(4.dp),
+					verticalAlignment = Alignment.CenterVertically,
+					horizontalArrangement = Arrangement.spacedBy(4.dp)
 				) {
-					// Compose TextField for full IME support
 					TextField(
 						value = text,
 						onValueChange = { text = it },
 						placeholder = {
-							Text(stringResource(R.string.terminal_text_input_dialog_label))
+							Text(
+								stringResource(R.string.terminal_text_input_dialog_label),
+								style = MaterialTheme.typography.bodySmall
+							)
 						},
+						singleLine = true,
 						keyboardOptions = KeyboardOptions(
 							imeAction = ImeAction.Send
 						),
@@ -237,23 +271,29 @@ fun FloatingTextInputDialog(
 							focusedIndicatorColor = Color.Transparent,
 							unfocusedIndicatorColor = Color.Transparent
 						),
-						shape = RoundedCornerShape(8.dp),
+						textStyle = MaterialTheme.typography.bodyMedium,
+						shape = RoundedCornerShape(6.dp),
 						modifier = Modifier
 							.weight(1f)
-							.height(90.dp)
+							.height(48.dp)
 							.focusRequester(focusRequester)
 					)
 
 					// Send button
-					FloatingActionButton(
+					IconButton(
 						onClick = { sendText() },
-						containerColor = MaterialTheme.colorScheme.primary,
-						contentColor = MaterialTheme.colorScheme.onPrimary,
-						modifier = Modifier.size(48.dp)
+						modifier = Modifier
+							.size(40.dp)
+							.background(
+								MaterialTheme.colorScheme.primary,
+								RoundedCornerShape(6.dp)
+							)
 					) {
 						Icon(
-                            Icons.AutoMirrored.Filled.Send,
-							contentDescription = stringResource(R.string.button_send)
+							Icons.AutoMirrored.Filled.Send,
+							contentDescription = stringResource(R.string.button_send),
+							tint = MaterialTheme.colorScheme.onPrimary,
+							modifier = Modifier.size(20.dp)
 						)
 					}
 				}

@@ -46,7 +46,7 @@ android {
             .toInt()
 
     defaultConfig {
-        applicationId = "org.connectbot"
+        applicationId = "com.voiceterm.app"
 
         minSdk =
             libs.versions.minSdk
@@ -64,7 +64,7 @@ android {
             debugSymbolLevel = "full"
         }
 
-        testApplicationId = "org.connectbot.tests"
+        testApplicationId = "com.voiceterm.app.tests"
         testInstrumentationRunner = "org.connectbot.HiltTestRunner"
 
         // The following argument makes the Android Test Orchestrator run its

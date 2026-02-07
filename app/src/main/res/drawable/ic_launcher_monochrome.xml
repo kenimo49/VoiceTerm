@@ -3,10 +3,30 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+  <!-- Terminal prompt arrow > -->
   <path
-      android:pathData="M38.839,39.124l15.232,15.232 -15.232,15.232 -3.839,-3.839L46.395,54.356 34.995,42.963Z"
+      android:pathData="M30.839,39.124l15.232,15.232 -15.232,15.232 -3.839,-3.839L38.395,54.356 26.995,42.963Z"
       android:fillColor="#fff"/>
+  <!-- Terminal cursor _ -->
   <path
-      android:pathData="M54,66L73,66L73,70L54,70Z"
+      android:pathData="M46,66L60,66L60,70L46,70Z"
+      android:fillColor="#fff"/>
+  <!-- Microphone body -->
+  <path
+      android:pathData="M74,44 C74,41.79 75.79,40 78,40 C80.21,40 82,41.79 82,44L82,54 C82,56.21 80.21,58 78,58 C75.79,58 74,56.21 74,54Z"
+      android:fillColor="#fff"/>
+  <!-- Microphone arc -->
+  <path
+      android:pathData="M70,52 C70,56.42 73.58,60 78,60 C82.42,60 86,56.42 86,52"
+      android:strokeWidth="2.5"
+      android:strokeColor="#fff"
+      android:fillColor="#00000000"/>
+  <!-- Microphone stand -->
+  <path
+      android:pathData="M77,60L77,65L79,65L79,60"
+      android:fillColor="#fff"/>
+  <!-- Microphone base -->
+  <path
+      android:pathData="M73,65L83,65L83,67L73,67Z"
       android:fillColor="#fff"/>
 </vector>

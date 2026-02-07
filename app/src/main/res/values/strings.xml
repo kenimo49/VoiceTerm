@@ -21,7 +21,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools"
 	xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 	<!-- Summary of what ConnectBot is; used as a short description in the Android running apps list -->
-	<string name="app_desc">"Simple, powerful, open-source SSH client."</string>
+	<string name="app_desc">"SSH client with Japanese input and voice recognition."</string>
 
 	<!-- Summary of what the ConnectBot service does; displayed in the Android running apps list -->
 	<string name="service_desc">"Maintains SSH connections and loaded pubkeys"</string>
@@ -830,7 +830,7 @@
 	<string name="dialog_message_reset_all">"This will reset all 256 colors to their default values. This action cannot be undone."</string>
 
 	<!-- Displayed in the notification bar that connections are active -->
-	<string name="app_is_running">"ConnectBot is running"</string>
+	<string name="app_is_running">"VoiceTerm is running"</string>
 
 	<!-- RGB color picker labels -->
 	<!-- Label for the red color component slider (0-255) in the RGB color picker -->
@@ -944,6 +944,9 @@
 
 	<!-- Menu item in console toolbar to open floating text input dialog -->
 	<string name="console_menu_text_input">Text input</string>
+
+	<!-- Checkbox label for appending Enter key when sending text -->
+	<string name="terminal_text_input_send_enter">Enter</string>
 
 	<!-- Send button in floating text input dialog -->
 	<string name="button_send">Send</string>
@@ -1214,15 +1217,15 @@
 	<!-- Label for the official website link in the Help screen. -->
 	<string name="help_website">Website</string>
 	<!-- URL for the official ConnectBot website. -->
-	<string name="help_website_url" translatable="false">https://connectbot.org/</string>
+	<string name="help_website_url" translatable="false">https://github.com/kenimo49/VoiceTerm</string>
 	<!-- Label for the GitHub repository link in the Help screen. -->
 	<string name="help_github">Source Code</string>
 	<!-- URL for the ConnectBot GitHub repository. -->
-	<string name="help_github_url" translatable="false">https://github.com/connectbot/connectbot</string>
+	<string name="help_github_url" translatable="false">https://github.com/kenimo49/VoiceTerm</string>
 	<!-- Label for the bug report/issue tracker link in the Help screen. -->
 	<string name="help_report_bug">Report a Bug</string>
 	<!-- URL for the ConnectBot issue tracker. -->
-	<string name="help_report_bug_url" translatable="false">https://connectbot.org/bug</string>
+	<string name="help_report_bug_url" translatable="false">https://github.com/kenimo49/VoiceTerm/issues</string>
 	<!-- Section title for the "Help" screen showing donation options. -->
 	<string name="help_section_donate">Support Development</string>
 	<!-- Label for the GitHub Sponsors donation link in the Help screen. -->
