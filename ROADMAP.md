@@ -7,27 +7,29 @@
 
 ---
 
-## Phase 1: MVP (Minimum Viable Product)
+## Phase 1: MVP (Minimum Viable Product) ✅ 完了
 
 ### 1.1 環境構築
-- [ ] Android Studioでビルド確認
-- [ ] 実機でConnectBot動作確認
-- [ ] パッケージ名変更 (`org.connectbot` → `com.voiceterm.app`)
-- [ ] アプリ名・アイコン変更
+- [x] Android Studioでビルド確認
+- [x] 実機でConnectBot動作確認
+- [x] パッケージ名変更 (`org.connectbot` → `com.voiceterm.app`)
+- [x] アプリ名・アイコン変更
+- [x] アイコンリデザイン（ティール背景 + マイク中央 + 音声波形）
 
 ### 1.2 日本語入力対応
-- [ ] 入力用UIの設計
-- [ ] 画面下部に専用入力欄を追加
-- [ ] EditText + 送信ボタンの実装
-- [ ] IME確定後にターミナルへ送信
-- [ ] 従来の直接入力との切り替え
+- [x] 入力用UIの設計
+- [x] 画面下部に非モーダル入力バーを追加
+- [x] EditText + 送信ボタンの実装
+- [x] IME確定後にターミナルへ送信
+- [x] 従来の直接入力との切り替え
 
 ### 1.3 音声認識
-- [ ] Speech-to-Text API 実装
-- [ ] 音声入力ボタン追加
-- [ ] 認識結果を入力欄に反映
-- [ ] 回数制限ロジック (SharedPreferences)
-- [ ] 無料回数: 1日10回を想定
+- [x] SpeechRecognizer API 実装
+- [x] 音声入力ボタン追加（マイクアイコン）
+- [x] 認識結果を入力欄に反映
+- [x] 自動送信タイムアウト選択機能
+- [ ] 回数制限ロジック (SharedPreferences) — Phase 3で実装
+- [ ] 無料回数: 1日10回を想定 — Phase 3で実装
 
 ---
 
@@ -120,12 +122,12 @@ end
 
 ## Milestone Summary
 
-| Phase | 目標 | 想定期間 |
-|-------|------|----------|
-| Phase 1 | MVP完成・動作確認 | 2-3週間 |
-| Phase 2 | Google Play公開 | 1週間 |
-| Phase 3 | 収益化開始 | 2週間 |
-| Phase 4 | 継続的改善 | ongoing |
+| Phase | 目標 | 状態 |
+|-------|------|------|
+| Phase 1 | MVP完成・動作確認 | ✅ 完了 |
+| Phase 2 | Google Play公開 | 🔜 次 |
+| Phase 3 | 収益化開始 | 未着手 |
+| Phase 4 | 継続的改善 | 未着手 |
 
 ---
 

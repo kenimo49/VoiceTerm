@@ -7,9 +7,10 @@ SSH client with Japanese input & voice recognition for Android.
 ## Features
 
 - **SSH接続** - ConnectBotベースの安定したSSH/Telnet/Mosh接続
-- **日本語入力対応** - IMEとの連携問題を解決した専用入力UI
-- **音声認識** - 声でコマンド入力（一定回数無料）
+- **日本語入力対応** - 非モーダル入力バーでIMEとの連携問題を解決
+- **音声認識** - SpeechRecognizerによる音声コマンド入力（自動送信タイムアウト付き）
 - **Claude Code連携** - スマホからAIペアプログラミング
+- **独自アイコン** - ティール背景 + マイク + 音声波形でConnectBotと差別化
 
 ## Screenshots
 
@@ -55,8 +56,9 @@ cd VoiceTerm
 ## Roadmap
 
 - [x] リポジトリ作成
-- [ ] 日本語入力UI実装
-- [ ] 音声認識実装
+- [x] ブランディング（アプリ名・パッケージ名・アイコン）
+- [x] 日本語入力UI実装（非モーダル入力バー）
+- [x] 音声認識実装（SpeechRecognizer + 自動送信）
 - [ ] Google Play公開
 - [ ] 広告・課金実装
 
