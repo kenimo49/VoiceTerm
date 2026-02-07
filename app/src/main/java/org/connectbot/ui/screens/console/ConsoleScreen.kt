@@ -156,6 +156,9 @@ fun ConsoleScreen(
     val keyboardAlwaysVisible = remember { prefs.getBoolean("alwaysvisible", false) }
     var fullscreen by remember { mutableStateOf(prefs.getBoolean("fullscreen", false)) }
     var titleBarHide by remember { mutableStateOf(prefs.getBoolean("titlebarhide", false)) }
+    val autoSendOptions = remember { longArrayOf(0L, 2000L, 5000L, 10000L) }
+    var autoSendTimeoutMs by remember { mutableStateOf(prefs.getLong("floating_input_auto_send_timeout", 0L)) }
+    var sendEnterEnabled by remember { mutableStateOf(prefs.getBoolean("floating_input_send_enter", true)) }
     val volumeKeysChangeFontSize = remember { prefs.getBoolean(PreferenceConstants.VOLUME_FONT, true) }
 
     // Keyboard state
@@ -732,6 +735,39 @@ fun ConsoleScreen(
                                     )
                                 }
                             )
+
+                            // Auto-send timeout cycle
+                            DropdownMenuItem(
+                                text = {
+                                    val label = if (autoSendTimeoutMs == 0L) {
+                                        stringResource(R.string.pref_autosend_off)
+                                    } else {
+                                        "${autoSendTimeoutMs / 1000}s"
+                                    }
+                                    Text(stringResource(R.string.pref_autosend_title, label))
+                                },
+                                onClick = {
+                                    val idx = autoSendOptions.indexOf(autoSendTimeoutMs)
+                                    val next = autoSendOptions[(idx + 1) % autoSendOptions.size]
+                                    autoSendTimeoutMs = next
+                                    prefs.edit { putLong("floating_input_auto_send_timeout", next) }
+                                }
+                            )
+
+                            // Append Enter on send toggle
+                            DropdownMenuItem(
+                                text = { Text(stringResource(R.string.pref_send_enter_title)) },
+                                onClick = {
+                                    sendEnterEnabled = !sendEnterEnabled
+                                    prefs.edit { putBoolean("floating_input_send_enter", sendEnterEnabled) }
+                                },
+                                trailingIcon = {
+                                    Checkbox(
+                                        checked = sendEnterEnabled,
+                                        onCheckedChange = null
+                                    )
+                                }
+                            )
                         }
                     }
                 }
@@ -741,6 +777,8 @@ fun ConsoleScreen(
             if (showTextInputDialog && currentBridge != null) {
                 FloatingTextInputDialog(
                     bridge = currentBridge,
+                    autoSendTimeoutMs = autoSendTimeoutMs,
+                    sendEnter = sendEnterEnabled,
                     onDismiss = {
                         showTextInputDialog = false
                         termFocusRequester.requestFocus()

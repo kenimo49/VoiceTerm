@@ -951,6 +951,14 @@
 	<!-- Send button in floating text input dialog -->
 	<string name="button_send">Send</string>
 
+	<!-- Menu item for auto-send timeout in text input. Parameter is timeout description (e.g. "OFF", "2s") -->
+	<string name="pref_autosend_title">Auto-send: %s</string>
+	<!-- Auto-send timeout option: disabled -->
+	<string name="pref_autosend_off">OFF</string>
+
+	<!-- Menu item for appending Enter key when sending text from input bar -->
+	<string name="pref_send_enter_title">Append Enter on send</string>
+
 	<!-- Common UI button labels -->
 	<!-- Button label for confirming an action -->
 	<string name="button_ok">OK</string>
@@ -1330,4 +1338,12 @@
 	<string name="icon_style_cloud">Cloud</string>
 	<!-- Icon style option: key/security icon -->
 	<string name="icon_style_key">Key</string>
+
+	<!-- Voice input strings -->
+	<!-- Content description for microphone button when voice input is not active -->
+	<string name="voice_input_mic_on">Start voice input</string>
+	<!-- Content description for microphone button when voice input is active -->
+	<string name="voice_input_mic_off">Stop voice input</string>
+	<!-- Message shown when speech recognition is not available on this device -->
+	<string name="voice_input_unavailable">Voice input is not available on this device</string>
 </resources>
