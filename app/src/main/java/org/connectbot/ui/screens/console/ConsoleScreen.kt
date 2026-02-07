@@ -41,6 +41,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ContentPaste
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.KeyboardHide
 import androidx.compose.material.icons.filled.Link
 import androidx.compose.material.icons.filled.LinkOff
 import androidx.compose.material.icons.filled.MoreVert
@@ -552,20 +553,6 @@ fun ConsoleScreen(
             )
         }
 
-        if (showTextInputDialog && currentBridge != null) {
-            // TODO: Get selected text from TerminalEmulator when selection is implemented
-            val selectedText = ""
-
-            FloatingTextInputDialog(
-                bridge = currentBridge,
-                initialText = selectedText,
-                onDismiss = {
-                    showTextInputDialog = false
-                    termFocusRequester.requestFocus()
-                }
-            )
-        }
-
         // Overlay TopAppBar - always visible when titleBarHide is false,
         // or temporarily visible when titleBarHide is true and showTitleBar is true
         if (!titleBarHide || showTitleBar) {
@@ -600,13 +587,13 @@ fun ConsoleScreen(
                     TopAppBarDefaults.topAppBarColors()
                 },
                 actions = {
-                    // Text Input button
+                    // Text Input toggle button
                     IconButton(
-                        onClick = { showTextInputDialog = true },
+                        onClick = { showTextInputDialog = !showTextInputDialog },
                         enabled = currentBridge != null
                     ) {
                         Icon(
-                            Icons.Default.Edit,
+                            if (showTextInputDialog) Icons.Default.KeyboardHide else Icons.Default.Edit,
                             contentDescription = stringResource(R.string.console_menu_text_input)
                         )
                     }
@@ -749,6 +736,17 @@ fun ConsoleScreen(
                     }
                 }
             )
+
+            // Inline text input bar below TopAppBar
+            if (showTextInputDialog && currentBridge != null) {
+                FloatingTextInputDialog(
+                    bridge = currentBridge,
+                    onDismiss = {
+                        showTextInputDialog = false
+                        termFocusRequester.requestFocus()
+                    }
+                )
+            }
 
             // Progress indicator for OSC 9;4 progress reporting
             val progressState = uiState.progressState
