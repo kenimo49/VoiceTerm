@@ -1,3 +1,12 @@
+---
+title: ビルドガイド
+category: guide
+tags: [build, gradle, apk, aab, release, debug]
+related:
+  - ../knowledge/wsl-setup.md
+  - device-setup.md
+---
+
 # ビルドガイド
 
 VoiceTermのビルド方法について説明します。

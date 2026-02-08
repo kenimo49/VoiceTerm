@@ -1,3 +1,12 @@
+---
+title: WSL2 開発環境セットアップ
+category: knowledge
+tags: [wsl2, android-sdk, jdk, setup, environment]
+related:
+  - ../guide/build.md
+  - ../guide/device-setup.md
+---
+
 # WSL2 開発環境セットアップ
 
 WSL2 (Windows Subsystem for Linux 2) 上でVoiceTermをビルドするための環境構築手順。
