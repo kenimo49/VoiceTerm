@@ -1,68 +1,61 @@
+<p align="center">
+  <img src="icons/icon-web.png" alt="VoiceTerm" width="128" height="128">
+</p>
+
 # VoiceTerm
 
-SSH client with Japanese input & voice recognition for Android.
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](./LICENSE)
+[![Platform: Android](https://img.shields.io/badge/Platform-Android-3ddc84.svg)](https://developer.android.com/)
+[![Status: Alpha](https://img.shields.io/badge/Status-Alpha%20(pre--release)-orange.svg)](#roadmap)
 
-カフェからスマホで自宅PCを操作。日本語入力と音声認識で、モバイル開発体験を実現します。
+日本語入力と音声認識に対応した Android向けSSHクライアント。カフェからスマホで自宅PCのClaude Codeを操作する、モバイルAIペアプロを実現するために ConnectBot をフォークしてリブランドしたプロジェクト。
+
+> **EN**: Android SSH client with Japanese input & voice recognition — built to pair with Claude Code from a smartphone. Forked from ConnectBot (Apache 2.0).
 
 ## Features
 
-- **SSH接続** - ConnectBotベースの安定したSSH/Telnet/Mosh接続
-- **日本語入力対応** - 非モーダル入力バーでIMEとの連携問題を解決
-- **音声認識** - SpeechRecognizerによる音声コマンド入力（自動送信タイムアウト付き）
-- **Claude Code連携** - スマホからAIペアプログラミング
-- **独自アイコン** - ティール背景 + マイク + 音声波形でConnectBotと差別化
+- **SSH / Telnet / Mosh 接続** — ConnectBot ベースの安定した接続
+- **日本語入力** — 非モーダル入力バーで IME 連携問題を解消 (`FloatingTextInputDialog.kt`)
+- **音声認識** — Android `SpeechRecognizer` API、自動送信タイムアウト付き
+- **Claude Code フレンドリー** — スマホからAIペアプログラミング
+- **独自ブランディング** — ティール背景 + マイク + 音声波形アイコン
 
-## Screenshots
+## ステータス
 
-(Coming soon)
+現在は **Phase 1 MVP 完了** の段階で、Google Play への公開は準備中。動かすには source からビルドする必要あり。
 
-## Install
+- ✅ Phase 1 (MVP): 日本語入力・音声認識・ブランディング
+- ⬜ Phase 2: Google Play 公開
+- ⬜ Phase 3: 広告・課金
 
-### Google Play
+詳細は [ROADMAP.md](./ROADMAP.md) / [CHANGELOG.md](./CHANGELOG.md) を参照。
 
-(Coming soon)
-
-### Build from source
+## ビルドして試す
 
 ```bash
 git clone https://github.com/kenimo49/VoiceTerm.git
 cd VoiceTerm
-./gradlew assembleDebug
-```
 
-## Development
-
-### Requirements
-
-- Android Studio (latest stable)
-- Android SDK 21+
-- Kotlin 1.9+
-
-### Build
-
-```bash
-# Debug build
+# Debug ビルド (APK を実機に転送)
 ./gradlew assembleDebug
 
-# Release build
+# Release ビルド
 ./gradlew assembleRelease
 
-# Run tests
+# ユニットテスト
 ./gradlew test
 ```
 
-詳細は [CLAUDE.md](CLAUDE.md) を参照してください。
+### 開発要件
 
-## Roadmap
+- Android Studio (最新 stable)
+- Android SDK 21+
+- Kotlin 1.9+
 
-- [x] リポジトリ作成
-- [x] ブランディング（アプリ名・パッケージ名・アイコン）
-- [x] 日本語入力UI実装（非モーダル入力バー）
-- [x] 音声認識実装（SpeechRecognizer + 自動送信）
-- [ ] Google Play公開
-- [ ] 広告・課金実装
+## 開発者向け
 
-詳細は [ROADMAP.md](ROADMAP.md) を参照してください。
+- 内部構造・設計思想は [CLAUDE.md](./CLAUDE.md)
+- 4層構成のドキュメント (guide / knowledge / design / references / flows) は [docs/README.md](./docs/README.md)
 
 ## License
 
@@ -79,5 +72,5 @@ Licensed under the Apache License, Version 2.0
 
 ## Acknowledgments
 
-- [ConnectBot](https://github.com/connectbot/connectbot) - Original SSH client for Android
-- ConnectBot Contributors - For building an excellent open source SSH client
+- [ConnectBot](https://github.com/connectbot/connectbot) — Original SSH client for Android
+- ConnectBot Contributors — For building an excellent open source SSH client
